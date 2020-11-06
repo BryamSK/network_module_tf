@@ -73,7 +73,7 @@ resource "aws_subnet" "subnet" {
 # CREATE THE security_group
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_security_group" "alb" {
-  name        = "${var.project_name}-security-group"
+  name        = "${var.project_name}-security-group-alb"
   description = "controls access to the ALB"
   vpc_id      = aws_vpc.aws-vpc.id
 
@@ -93,7 +93,7 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name        = "${var.project_name}-security-group"
+  name        = "${var.project_name}-security-group-ecs_tasks"
   description = "allow inbound access from the ALB only"
   vpc_id      = aws_vpc.aws-vpc.id
 
@@ -101,7 +101,7 @@ resource "aws_security_group" "ecs_tasks" {
     protocol        = "tcp"
     from_port       = 80
     to_port         = 80
-    security_groups = [aws_security_group.lb_prueba.id]
+    security_groups = [aws_security_group.alb.id]
   }
 
   egress {
