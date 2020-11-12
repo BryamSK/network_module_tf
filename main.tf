@@ -25,7 +25,7 @@ data "aws_availability_zones" "all" {}
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "subnet_addrs" {
-  source = "github.com/hashicorp/terraform-cidr-subnets?ref=v1.0.0"
+  source = "./../subnet_module_tf"
 
   base_cidr_block = var.base_cidr_block
   networks = var.networks
@@ -60,12 +60,12 @@ resource "aws_internet_gateway" "aws-gw" {
 
 resource "aws_subnet" "subnet" {
   for_each =  module.subnet_addrs.network_cidr_blocks
-
   vpc_id     = aws_vpc.aws-vpc.id
   cidr_block = each.value
   availability_zone = each.key
+  map_public_ip_on_launch = true
   tags       = {
-    Name = "${var.project_name}-sub"
+   Name = "${var.project_name}-sub"
   } 
 }
 
