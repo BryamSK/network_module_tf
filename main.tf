@@ -25,7 +25,7 @@ data "aws_availability_zones" "all" {}
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "subnet_addrs" {
-  source = "./../subnet_module_tf"
+  source = "github.com/BryamSK/subnet_module_tf?ref=v0.0.1"
 
   base_cidr_block = var.base_cidr_block
   networks = var.networks
