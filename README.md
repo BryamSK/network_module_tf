@@ -1,5 +1,7 @@
 # Network_module_tf
 Módulo para Creación de redes publicas en AWS, Cea VPS, internet_gateway, Subredes y grupos de seguridad
+## Ultima Version estable
+v0.0.5
 
 ```
 module "network_module" {
